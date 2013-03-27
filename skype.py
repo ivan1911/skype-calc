@@ -8,32 +8,30 @@ import codecs
 import random
 from ytraffic import ytraffic
 from yweather import yweather
-"""
-SkypeCalcBot -- calc and weather,traffic bot
-Developed special for #ganditi @ skype conferenece
-
-Сommands    calc <word>
-========    calc <word>=<description>
-            cfind <word> (search by calc key start)
-            mcalc <word> (search by value)
-            tempmsk, tempspb, tempsim, temphel, tempist, tempthai
-            probkimsk, probkispb
-
-Author
-======
-ivan.kiselev@gmail.com
-
-Require:
-========
-Skype4py https://github.com/awahlig/skype4py (SkypeAPI)
-Python Weather API (pywapi) https://code.google.com/p/python-weather-api/ (погода Yahoo)
-Pytils https://github.com/j2a/pytils/ (склонение русских слов)
-"""
+# SkypeCalcBot -- calc and weather,traffic bot
+# Developed special for #ganditi @ skype conferenece
+#
+# Сommands    calc <word>
+# ========    calc <word>=<description>
+#             cfind <word> (search by calc key start)
+#             mcalc <word> (search by value)
+#             tempmsk, tempspb, tempsim, temphel, tempist, tempthai
+#             probkimsk, probkispb
+#
+# Author
+# ======
+# ivan.kiselev@gmail.com
+#
+# Require:
+# ========
+# Skype4py https://github.com/awahlig/skype4py (SkypeAPI)
+# Python Weather API (pywapi) https://code.google.com/p/python-weather-api/ (погода Yahoo)
+# Pytils https://github.com/j2a/pytils/ (склонение русских слов)
 
 
 class SkypeBot(object):
     def __init__(self):
-        self.chatname = '#creator_nick/$you_bot_nick;id' # channel name (find using list)
+        self.chatname = '#creator_nick/$you_bot_nick;id'  # channel name (find using list)
         self.calc_file = 'calcdata.txt'
         self.bot_name = 'SkypeCalcBot'
 
@@ -47,7 +45,8 @@ class SkypeBot(object):
     def LoadCalcDict(self):
         for line in codecs.open(self.calc_file, 'r', encoding='utf8'):
             calc_data = line.split('||')
-            self.calc_dict[calc_data[0].replace('\'', '')] = [calc_data[1].replace('\'', ''), calc_data[2].replace('\'', '').rstrip()]
+            self.calc_dict[calc_data[0].replace('\'', '')] = [calc_data[1].replace('\'', ''),
+                                                              calc_data[2].replace('\'', '').rstrip()]
 
     def AttachmentStatus(self, status):
         if status == Skype4Py.apiAttachAvailable:
@@ -116,7 +115,9 @@ class SkypeBot(object):
 
     def get_weather(self, city_code):
         weather = pywapi.get_weather_from_yahoo(city_code)
-        return '%s temperature: %sC, %s' % (weather['condition']['title'], weather['condition']['temp'], weather['condition']['text'])
+        return '%s temperature: %sC, %s' % (weather['condition']['title'],
+                                            weather['condition']['temp'],
+                                            weather['condition']['text'])
 
     commands = {
         "calc *([^\=]*)$": cmd_calc,
