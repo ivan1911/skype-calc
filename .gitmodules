@@ -1,0 +1,9 @@
+[submodule "modules/skype4py"]
+	path = modules/skype4py
+	url = git://github.com/awahlig/skype4py.git
+[submodule "modules/pywapi"]
+	path = modules/pywapi
+	url = ../skype-calc
+[submodule "modules/pytils"]
+	path = modules/pytils
+	url = https://github.com/j2a/pytils
