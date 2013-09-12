@@ -27,3 +27,7 @@ probkimsk, probkispb, probki (get traffic info)
 * Pytils <https://github.com/j2a/pytils/> (russian word declension)
 
 
+### calcdata.txt example
+```
+'dark_fred'||'Zashitnik nervnih detey'||'*'
+```
