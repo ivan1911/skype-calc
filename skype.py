@@ -8,32 +8,31 @@ import codecs
 import random
 from ytraffic import ytraffic
 from yweather import yweather
-# SkypeCalcBot -- calc and weather,traffic bot
-# Developed special for #ganditi @ skype conferenece
-#
-# Сommands    calc <word>
-# ========    calc <word>=<description>
-#             cfind <word> (search by calc key start)
-#             mcalc <word> (search by value)
-#             tempmsk, tempspb, tempsim, temphel, tempist, tempthai
-#             probkimsk, probkispb
-#
-# Author
-# ======
-# ivan.kiselev@gmail.com
-#
-# Require:
-# ========
-# Skype4py https://github.com/awahlig/skype4py (SkypeAPI)
-# Python Weather API (pywapi) https://code.google.com/p/python-weather-api/ (погода Yahoo)
-# Pytils https://github.com/j2a/pytils/ (склонение русских слов)
+"""
+SkypeCalcBot -- calc and weather,traffic bot
+Developed special for #ganditi@skype conferenece
+
+Сommands    calc <word>
+========    calc <word>=<descriptiom>
+            tempmsk, tempspb, tempsim, temphel, tempist, tempthai
+            probkimsk, probkispb
+Author
+======
+ivan.kiselev@gmail.com
+
+Require:
+========
+Skype4py https://github.com/awahlig/skype4py (SkypeAPI)
+Python Weather API (pywapi) https://code.google.com/p/python-weather-api/ (погода Yahoo)
+Pytils https://github.com/j2a/pytils/ (склонение русских слов)
+"""
 
 
 class SkypeBot(object):
     def __init__(self):
-        self.chatname = '#creator_nick/$you_bot_nick;id'  # channel name (find using list)
-        self.calc_file = 'calcdata.txt'
-        self.bot_name = 'SkypeCalcBot'
+        self.chatname = '#xxx' # название канала
+        self.calc_file = 'calcdata.txt' # файл с калками
+        self.bot_name = 'SkypeCalcBot' # название бота
 
         self.skype = Skype4Py.Skype(Events=self)
         self.skype.FriendlyName = self.bot_name
@@ -45,8 +44,7 @@ class SkypeBot(object):
     def LoadCalcDict(self):
         for line in codecs.open(self.calc_file, 'r', encoding='utf8'):
             calc_data = line.split('||')
-            self.calc_dict[calc_data[0].replace('\'', '')] = [calc_data[1].replace('\'', ''),
-                                                              calc_data[2].replace('\'', '').rstrip()]
+            self.calc_dict[calc_data[0].replace('\'', '')] = [calc_data[1].replace('\'', ''), calc_data[2].replace('\'', '').rstrip()]
 
     def AttachmentStatus(self, status):
         if status == Skype4Py.apiAttachAvailable:
@@ -82,6 +80,7 @@ class SkypeBot(object):
             return "thanks for adding <%s>" % added_by
 
     def cmd_find_calc(self, calc):
+        # поиск единичного калка
         find_result = []
         for key, value in self.calc_dict.iteritems():   # iter on both keys and values
             if key.startswith(calc):
@@ -93,6 +92,7 @@ class SkypeBot(object):
             return u"No calc found for '%s'" % calc
 
     def cmd_find_mcalc(self, calc):
+        # поиск по калкам
         find_result = []
         for key, value in self.calc_dict.items():   # iter on both keys and values
             if calc in value[0]:
@@ -104,29 +104,31 @@ class SkypeBot(object):
             return u"No calc found for '%s'" % calc
 
     def cmd_temp(self, city):
+        # погода Яндекс в городах
         city_code = {'msk': '27612', 'spb': '26063', 'ist': '17060', 'sim': '33946', 'hel': '2974', 'thai': '48461'}
         return yweather(city_code[city], 'str')
 
     def cmd_trafficmsk(self):
+        # пробки MSK
         return ytraffic(1, 'str')
 
     def cmd_trafficspb(self):
+        # пробки SPB
         return ytraffic(2, 'str')
 
     def get_weather(self, city_code):
+        # погода Yagoo
         weather = pywapi.get_weather_from_yahoo(city_code)
-        return '%s temperature: %sC, %s' % (weather['condition']['title'],
-                                            weather['condition']['temp'],
-                                            weather['condition']['text'])
+        return '%s temperature: %sC, %s' % (weather['condition']['title'], weather['condition']['temp'], weather['condition']['text'])
 
     commands = {
-        "calc *([^\=]*)$": cmd_calc,
-        "cfind *(.{3,})$": cmd_find_calc,
-        "mcalc *(.{3,})$": cmd_find_mcalc,
-        "calc *([^ ]*) *= *(.*)": cmd_savecalc,
+        "!?calc *([^\=]*)$": cmd_calc,
+        "!?cfind *(.{3,})$": cmd_find_calc,
+        "!?mcalc *(.{3,})$": cmd_find_mcalc,
+        "!?calc *([^ ]*) *= *(.*)": cmd_savecalc,
         "^temp(msk|sim|thai|spb|ist|hel)$": cmd_temp,
-        "^probkimsk$": cmd_trafficmsk,
-        "^probkispb$": cmd_trafficspb
+        "^!?probkimsk|!?probki$": cmd_trafficmsk,
+        "^!?probkispb$": cmd_trafficspb
     }
 
 if __name__ == "__main__":
