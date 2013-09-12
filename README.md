@@ -17,7 +17,7 @@ mcalc [word] (search by value)
 
 tempmsk, tempspb, tempsim, temphel, tempist, tempthai (weather temp)
 
-probkimsk, probkispb (get temprature)
+probkimsk, probkispb, probki (get traffic info)
 ```
 ### Required Python modules
 
