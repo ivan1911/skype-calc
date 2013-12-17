@@ -31,7 +31,7 @@ Pytils https://github.com/j2a/pytils/ (склонение русских сло�
 
 class SkypeBot(object):
     def __init__(self):
-        self.chatname = 'CHAN NAME CHANGE ME BEFORE STARTUP' # название канала, можно узнать используя skype_chanlist.py
+        self.chatname = 'CHAN NAME CHANGE ME BEFORE START' # название канала, можно узнать используя skype_chanlist.py
         self.calc_file = 'calcdata.txt' # файл с калками
         self.bot_name = 'SkypeCalcBot' # название бота
 
@@ -117,9 +117,9 @@ class SkypeBot(object):
         # пробки SPB
         return ytraffic(2, 'str')
 
-    def cmd_btc(self, field):
+    def cmd_btc(self, ctype, field):
         # курс btc
-        return btcticker(field)
+        return btcticker(ctype, field)
         
     def get_weather(self, city_code):
         # погода Yagoo
@@ -129,7 +129,7 @@ class SkypeBot(object):
     commands = {
         "!?calc *([^\=]*)$": cmd_calc,
         "!?cfind *(.{3,})$": cmd_find_calc,
-        "!?btc *([^\=]*)$": cmd_btc,
+        "!?(btc|ltc) *([^\=]*)$": cmd_btc,
         "!?mcalc *(.{3,})$": cmd_find_mcalc,
         "!?calc *([^ ]*) *= *(.*)": cmd_savecalc,
         "^temp(msk|sim|thai|spb|ist|hel|ny|miami|scruz|ant|la)$": cmd_temp,
