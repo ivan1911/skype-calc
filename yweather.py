@@ -6,7 +6,7 @@ import time
 from xml.dom import minidom
 
 MOSCOW_CITY_ID = 27612
-
+# city list http://weather.yandex.ru/static/cities.xml
 
 def yweather(city_id, result='dict'):
     url = 'http://export.yandex.ru/weather-ng/forecasts/%s.xml' % city_id

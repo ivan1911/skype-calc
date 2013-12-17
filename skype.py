@@ -6,6 +6,7 @@ import re
 import pywapi
 import codecs
 import random
+from btcticker import btcticker
 from ytraffic import ytraffic
 from yweather import yweather
 """
@@ -30,7 +31,7 @@ Pytils https://github.com/j2a/pytils/ (склонение русских сло�
 
 class SkypeBot(object):
     def __init__(self):
-        self.chatname = 'skypechatnamechangeitasap' # название канала, можно узнать используя skype_chanlist.py
+        self.chatname = 'CHANNEL NAME CHANGE ME BEFORE EXEC' # название канала, можно узнать используя skype_chanlist.py
         self.calc_file = 'calcdata.txt' # файл с калками
         self.bot_name = 'SkypeCalcBot' # название бота
 
@@ -116,6 +117,10 @@ class SkypeBot(object):
         # пробки SPB
         return ytraffic(2, 'str')
 
+    def cmd_btc(self, field):
+        # курс btc
+        return btcticker(field)
+        
     def get_weather(self, city_code):
         # погода Yagoo
         weather = pywapi.get_weather_from_yahoo(city_code)
@@ -124,6 +129,7 @@ class SkypeBot(object):
     commands = {
         "!?calc *([^\=]*)$": cmd_calc,
         "!?cfind *(.{3,})$": cmd_find_calc,
+        "!?btc *([^\=]*)$": cmd_btc,
         "!?mcalc *(.{3,})$": cmd_find_mcalc,
         "!?calc *([^ ]*) *= *(.*)": cmd_savecalc,
         "^temp(msk|sim|thai|spb|ist|hel|ny|miami|scruz|ant|la)$": cmd_temp,
