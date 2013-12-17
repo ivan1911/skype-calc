@@ -21,7 +21,7 @@ probkimsk, probkispb, probki (get traffic info)
 
 btc (get btc currency info)
 
-ltc  (get ltc currency info)
+ltc (get ltc currency info)
 ```
 ### Required Python modules
 
