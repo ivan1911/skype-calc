@@ -15,9 +15,13 @@ cfind [word] (search by calc key start)
 
 mcalc [word] (search by value)
 
-tempmsk, tempspb, tempsim, temphel, tempist, tempthai (weather temp)
+tempmsk, tempspb ... temp(msk|sim|thai|spb|ist|hel|ny|miami|scruz|ant|la)  (weather temp)
 
 probkimsk, probkispb, probki (get traffic info)
+
+btc (get btc currency info)
+
+ltc  (get ltc currency info)
 ```
 ### Required Python modules
 
