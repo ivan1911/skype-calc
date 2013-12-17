@@ -31,7 +31,7 @@ Pytils https://github.com/j2a/pytils/ (склонение русских сло�
 
 class SkypeBot(object):
     def __init__(self):
-        self.chatname = 'CHANNEL NAME CHANGE ME BEFORE EXEC' # название канала, можно узнать используя skype_chanlist.py
+        self.chatname = 'CHAN NAME CHANGE ME BEFORE STARTUP' # название канала, можно узнать используя skype_chanlist.py
         self.calc_file = 'calcdata.txt' # файл с калками
         self.bot_name = 'SkypeCalcBot' # название бота
 
