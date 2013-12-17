@@ -10,7 +10,7 @@ from ytraffic import ytraffic
 from yweather import yweather
 """
 SkypeCalcBot -- calc and weather,traffic bot
-Developed special for #ganditi@skype conferenece
+Developed special for #ganditi @ skype conferenece
 
 Сommands    calc <word>
 ========    calc <word>=<descriptiom>
@@ -30,7 +30,7 @@ Pytils https://github.com/j2a/pytils/ (склонение русских сло�
 
 class SkypeBot(object):
     def __init__(self):
-        self.chatname = '#xxx' # название канала
+        self.chatname = 'skypechatnamechangeitasap' # название канала, можно узнать используя skype_chanlist.py
         self.calc_file = 'calcdata.txt' # файл с калками
         self.bot_name = 'SkypeCalcBot' # название бота
 
@@ -68,7 +68,7 @@ class SkypeBot(object):
         if calc in self.calc_dict:
             return "[ %s = %s added by <%s>]" % (calc, self.calc_dict[calc][0], self.calc_dict[calc][1])
         else:
-            return u"%s, я таво рот ебал нет такого калка ебень" % self.EventFrom
+            return u"%s, no calc found" % self.EventFrom
 
     def cmd_savecalc(self, calc, calc_body):
         added_by = self.EventFrom
@@ -105,7 +105,7 @@ class SkypeBot(object):
 
     def cmd_temp(self, city):
         # погода Яндекс в городах
-        city_code = {'msk': '27612', 'spb': '26063', 'ist': '17060', 'sim': '33946', 'hel': '2974', 'thai': '48461'}
+        city_code = {'msk': '27612', 'spb': '26063', 'ist': '17060', 'sim': '33946', 'hel': '2974', 'thai': '48461', 'ny': '72503', 'miami': '72202', 'scruz': '60020', 'ant': '89050', 'la': '72295'}
         return yweather(city_code[city], 'str')
 
     def cmd_trafficmsk(self):
@@ -126,7 +126,7 @@ class SkypeBot(object):
         "!?cfind *(.{3,})$": cmd_find_calc,
         "!?mcalc *(.{3,})$": cmd_find_mcalc,
         "!?calc *([^ ]*) *= *(.*)": cmd_savecalc,
-        "^temp(msk|sim|thai|spb|ist|hel)$": cmd_temp,
+        "^temp(msk|sim|thai|spb|ist|hel|ny|miami|scruz|ant|la)$": cmd_temp,
         "^!?probkimsk|!?probki$": cmd_trafficmsk,
         "^!?probkispb$": cmd_trafficspb
     }
