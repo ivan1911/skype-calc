@@ -1,4 +1,5 @@
-# SkypeCALC Bot
+# SkypeCALC Bot 
+[![GitHub version](https://badge.fury.io/gh/ivan1911%2Fskype-calc.png)](http://badge.fury.io/gh/ivan1911%2Fskype-calc)
 
 ## Overview
 
