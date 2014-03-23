@@ -36,28 +36,28 @@ class SkypeBot(object):
         self.bot_name = 'SkypeCalcBot' # название бота
 
         self.skype = Skype4Py.Skype(Events=self)
-        self.skype.FriendlyName = self.bot_name
+        self.skype.friendlyname = self.bot_name
         self.skype.Attach()
         self.calc_dict = {}
-        self.LoadCalcDict()
-        self.EventFrom = ''
+        self.load_calc_dict()
+        self.eventfrom = ''
 
-    def LoadCalcDict(self):
+    def load_calc_dict(self):
         for line in codecs.open(self.calc_file, 'r', encoding='utf8'):
             calc_data = line.split('||')
             self.calc_dict[calc_data[0].replace('\'', '')] = [calc_data[1].replace('\'', ''), calc_data[2].replace('\'', '').rstrip()]
 
-    def AttachmentStatus(self, status):
+    def attachment_status(self, status):
         if status == Skype4Py.apiAttachAvailable:
             self.skype.Attach()
 
-    def MessageStatus(self, msg, status):
+    def message_status(self, msg, status):
 
         if (status == Skype4Py.cmsReceived or status == Skype4Py.cmsSent) and msg.Chat.Name == self.chatname:
             for regexp, target in self.commands.items():
                 match = re.match(regexp, msg.Body, re.IGNORECASE)
                 if match:
-                    self.EventFrom = msg.FromHandle
+                    self.eventfrom = msg.FromHandle
                     reply = target(self, *match.groups())
                     if reply:
                         msg.Chat.SendMessage(reply.encode('utf8'))
@@ -69,10 +69,10 @@ class SkypeBot(object):
         if calc in self.calc_dict:
             return "[ %s = %s added by <%s>]" % (calc, self.calc_dict[calc][0], self.calc_dict[calc][1])
         else:
-            return u"%s, no calc found" % self.EventFrom
+            return u"%s, no calc found" % self.eventfrom
 
     def cmd_savecalc(self, calc, calc_body):
-        added_by = self.EventFrom
+        added_by = self.eventfrom
         if calc and calc_body:
             self.calc_dict[calc] = [calc_body, added_by]
             calc_file = codecs.open(self.calc_file, 'a', encoding='utf8')
@@ -104,24 +104,29 @@ class SkypeBot(object):
         else:
             return u"No calc found for '%s'" % calc
 
-    def cmd_temp(self, city):
+    @staticmethod
+    def cmd_temp(city):
         # погода Яндекс в городах
         city_code = {'msk': '27612', 'spb': '26063', 'ist': '17060', 'sim': '33946', 'hel': '2974', 'thai': '48461', 'ny': '72503', 'miami': '72202', 'scruz': '60020', 'ant': '89050', 'la': '72295'}
         return yweather(city_code[city], 'str')
 
-    def cmd_trafficmsk(self):
+    @staticmethod
+    def cmd_trafficmsk():
         # пробки MSK
         return ytraffic(1, 'str')
 
-    def cmd_trafficspb(self):
+    @staticmethod
+    def cmd_trafficspb():
         # пробки SPB
         return ytraffic(2, 'str')
 
-    def cmd_btc(self, ctype, field):
+    @staticmethod
+    def cmd_btc(ctype, field):
         # курс btc
         return btcticker(ctype, field)
         
-    def get_weather(self, city_code):
+    @staticmethod
+    def get_weather(city_code):
         # погода Yagoo
         weather = pywapi.get_weather_from_yahoo(city_code)
         return '%s temperature: %sC, %s' % (weather['condition']['title'], weather['condition']['temp'], weather['condition']['text'])
