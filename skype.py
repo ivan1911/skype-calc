@@ -31,9 +31,9 @@ Pytils https://github.com/j2a/pytils/ (склонение русских сло�
 
 class SkypeBot(object):
     def __init__(self):
-        self.chatname = 'CHAN NAME CHANGE ME BEFORE START' # название канала, можно узнать используя skype_chanlist.py
-        self.calc_file = 'calcdata.txt' # файл с калками
-        self.bot_name = 'SkypeCalcBot' # название бота
+        self.chatname = 'CHAN NAME CHANGE ME BEFORE START'  # название канала, можно узнать используя skype_chanlist.py
+        self.calc_file = 'calcdata.txt'  # файл с калками
+        self.bot_name = 'SkypeCalcBot'  # название бота
 
         self.skype = Skype4Py.Skype(Events=self)
         self.skype.friendlyname = self.bot_name
@@ -45,7 +45,8 @@ class SkypeBot(object):
     def load_calc_dict(self):
         for line in codecs.open(self.calc_file, 'r', encoding='utf8'):
             calc_data = line.split('||')
-            self.calc_dict[calc_data[0].replace('\'', '')] = [calc_data[1].replace('\'', ''), calc_data[2].replace('\'', '').rstrip()]
+            self.calc_dict[calc_data[0].replace('\'', '')] = [calc_data[1].replace('\'', ''),
+                                                              calc_data[2].replace('\'', '').rstrip()]
 
     def attachment_status(self, status):
         if status == Skype4Py.apiAttachAvailable:
@@ -107,7 +108,8 @@ class SkypeBot(object):
     @staticmethod
     def cmd_temp(city):
         # погода Яндекс в городах
-        city_code = {'msk': '27612', 'spb': '26063', 'ist': '17060', 'sim': '33946', 'hel': '2974', 'thai': '48461', 'ny': '72503', 'miami': '72202', 'scruz': '60020', 'ant': '89050', 'la': '72295'}
+        city_code = {'msk': '27612', 'spb': '26063', 'ist': '17060', 'sim': '33946', 'hel': '2974', 'thai': '48461',
+                     'ny': '72503', 'miami': '72202', 'scruz': '60020', 'ant': '89050', 'la': '72295'}
         return yweather(city_code[city], 'str')
 
     @staticmethod
@@ -129,7 +131,8 @@ class SkypeBot(object):
     def get_weather(city_code):
         # погода Yagoo
         weather = pywapi.get_weather_from_yahoo(city_code)
-        return '%s temperature: %sC, %s' % (weather['condition']['title'], weather['condition']['temp'], weather['condition']['text'])
+        return '%s temperature: %sC, %s' % (
+        weather['condition']['title'], weather['condition']['temp'], weather['condition']['text'])
 
     commands = {
         "!?calc *([^\=]*)$": cmd_calc,
