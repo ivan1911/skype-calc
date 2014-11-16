@@ -82,7 +82,12 @@ class SkypeBot(object):
             return "thanks for adding <%s>" % added_by
 
     def cmd_find_calc(self, calc):
-        # поиск единичного калка
+        """
+        поиск единичного калка
+
+        @type calc: str
+        @param calc: текст калка
+        """
         find_result = []
         for key, value in self.calc_dict.iteritems():   # iter on both keys and values
             if key.startswith(calc):
@@ -95,6 +100,12 @@ class SkypeBot(object):
 
     def cmd_find_mcalc(self, calc):
         # поиск по калкам
+        """
+        поиск всех калков по ключу
+
+        @type calc: str
+        @param calc: текст для поиска
+        """
         find_result = []
         for key, value in self.calc_dict.items():   # iter on both keys and values
             if calc in value[0]:
@@ -107,19 +118,25 @@ class SkypeBot(object):
 
     @staticmethod
     def cmd_temp(city):
-        # погода Яндекс в городах
+        """
+        погода Яндекс в городах
+        """
         city_code = {'msk': '27612', 'spb': '26063', 'ist': '17060', 'sim': '33946', 'hel': '2974', 'thai': '48461',
                      'ny': '72503', 'miami': '72202', 'scruz': '60020', 'ant': '89050', 'la': '72295'}
         return yweather(city_code[city], 'str')
 
     @staticmethod
     def cmd_trafficmsk():
-        # пробки MSK
+        """
+        пробки MSK
+        """
         return ytraffic(1, 'str')
 
     @staticmethod
     def cmd_trafficspb():
-        # пробки SPB
+        """
+        пробки SPB
+        """
         return ytraffic(2, 'str')
 
     @staticmethod
